@@ -35,25 +35,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Luo tili</title>
-    </head>
-    <body>
-        <h1>Luo tili</h1>
-        <?php if ($message !== ''): ?>
-            <p><?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?></p>
-        <?php endif; ?>
-        <form action="signup.php" method="post">
-            <p><label for="kayttajanimi">Käyttäjänimi</label></p>
-            <input type="text" name="kayttajanimi" id="kayttajanimi" maxlength="50" autocomplete="username" required>
-            <p><label for="email">Sähköposti</label></p>
-            <input type="email" name="email" id="email" maxlength="254" autocomplete="email" required>
-            <p><label for="salasana">Salasana (vähintään 8 merkkiä)</label></p>
-            <input type="password" name="salasana" id="salasana" minlength="8" autocomplete="new-password" required>
-            <p><button type="submit">Luo tili</button></p>
-        </form>
-        <p><a href="login.php">Takaisin kirjautumiseen</a></p>
-    </body>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Luo tili | Taitaja TietoTesti</title>
+    <link rel="stylesheet" href="site.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="index.php"><span class="brand-mark" aria-hidden="true">T</span><span>Taitaja TietoTesti</span></a>
+        <nav class="site-nav" aria-label="Päänavigaatio">
+            <a href="index.php">Etusivu</a>
+            <a href="login.php">Kirjaudu</a>
+        </nav>
+    </header>
+    <main class="auth-main">
+        <section class="auth-intro">
+            <p class="section-kicker">Opiskele, kertaa, oivalla</p>
+            <h1>Tee kertaamisesta omaa.</h1>
+            <p>Luo pelaajatili ja pääset mukaan tietovisojen opiskelumaailmaan.</p>
+        </section>
+        <section class="auth-panel" aria-labelledby="signup-title">
+            <h2 id="signup-title">Luo pelaajatili</h2>
+            <?php if ($message !== ''): ?>
+                <p class="form-message" role="status"><?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?></p>
+            <?php endif; ?>
+            <form action="signup.php" method="post" class="auth-form">
+                <label for="kayttajanimi">Käyttäjänimi</label>
+                <input type="text" name="kayttajanimi" id="kayttajanimi" maxlength="50" autocomplete="username" required>
+                <label for="email">Sähköposti</label>
+                <input type="email" name="email" id="email" maxlength="254" autocomplete="email" required>
+                <label for="salasana">Salasana (vähintään 8 merkkiä)</label>
+                <input type="password" name="salasana" id="salasana" minlength="8" autocomplete="new-password" required>
+                <button type="submit">Luo tili</button>
+            </form>
+            <p>Onko sinulla jo tili? <a href="login.php">Kirjaudu sisään</a></p>
+        </section>
+    </main>
+</body>
 </html>

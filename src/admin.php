@@ -153,19 +153,30 @@ foreach ($visat as $item) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin-paneeli</title>
+    <title>Admin-paneeli | Taitaja TietoTesti</title>
+    <link rel="stylesheet" href="site.css">
 </head>
 <body>
+    <header class="site-header">
+        <a class="brand" href="index.php"><span class="brand-mark" aria-hidden="true">T</span><span>Taitaja TietoTesti</span></a>
+        <nav class="site-nav" aria-label="Päänavigaatio">
+            <a href="index.php">Etusivu</a>
+            <a href="account.php">Oma tili</a>
+            <a class="nav-current" href="admin.php" aria-current="page">Admin-paneeli</a>
+            <a class="nav-action" href="logout.php">Kirjaudu ulos</a>
+        </nav>
+    </header>
+    <main class="admin-main">
+    <p class="section-kicker">Hallinta</p>
     <h1>Admin-paneeli</h1>
-    <p>Kirjautuneena: <?= htmlspecialchars($_SESSION['kayttajanimi'], ENT_QUOTES, 'UTF-8') ?></p>
-    <p><a href="logout.php">Kirjaudu ulos</a></p>
+    <p class="admin-intro">Kirjautuneena: <?= htmlspecialchars($_SESSION['kayttajanimi'], ENT_QUOTES, 'UTF-8') ?></p>
 
     <?php if ($message !== ''): ?>
-        <p><strong><?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?></strong></p>
+        <p class="form-message" role="status"><strong><?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?></strong></p>
     <?php endif; ?>
 
     <h2>Luo uusi visa</h2>
-    <form method="post">
+    <form method="post" class="admin-form">
         <input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf'], ENT_QUOTES, 'UTF-8') ?>">
         <input type="hidden" name="action" value="create">
         <p>
@@ -241,6 +252,7 @@ foreach ($visat as $item) {
             </section>
         <?php endforeach; ?>
     <?php endif; ?>
+    </main>
     <script>
         const kysymysContainer = document.getElementById('kysymykset');
         const poistaViimeinenPainike = document.getElementById('poista-viimeinen-kysymys');
