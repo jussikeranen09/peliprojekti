@@ -202,7 +202,10 @@ foreach ($visat as $item) {
                 </fieldset>
             <?php endforeach; ?>
         </div>
-        <p><button type="button" id="lisaa-kysymys">Lisää kysymys</button></p>
+        <p>
+            <button type="button" id="lisaa-kysymys">Lisää kysymys</button>
+            <button type="button" id="poista-viimeinen-kysymys" disabled>Poista viimeinen kysymys</button>
+        </p>
         <p><button type="submit">Tallenna visa</button></p>
     </form>
 
@@ -239,9 +242,14 @@ foreach ($visat as $item) {
         <?php endforeach; ?>
     <?php endif; ?>
     <script>
+        const kysymysContainer = document.getElementById('kysymykset');
+        const poistaViimeinenPainike = document.getElementById('poista-viimeinen-kysymys');
+        const paivitaPoistopainike = () => {
+            poistaViimeinenPainike.disabled = kysymysContainer.querySelectorAll('fieldset').length <= 1;
+        };
+
         document.getElementById('lisaa-kysymys').addEventListener('click', () => {
-            const container = document.getElementById('kysymykset');
-            const index = container.querySelectorAll('fieldset').length;
+            const index = kysymysContainer.querySelectorAll('fieldset').length;
             const fieldset = document.createElement('fieldset');
             const legend = document.createElement('legend');
             const questionLabel = document.createElement('label');
@@ -279,7 +287,16 @@ foreach ($visat as $item) {
                 row.append(answerLabel, document.createElement('br'), answerInput, correctLabel);
                 fieldset.append(row);
             }
-            container.append(fieldset);
+            kysymysContainer.append(fieldset);
+            paivitaPoistopainike();
+        });
+
+        poistaViimeinenPainike.addEventListener('click', () => {
+            const kysymysryhmat = kysymysContainer.querySelectorAll('fieldset');
+            if (kysymysryhmat.length > 1) {
+                kysymysryhmat[kysymysryhmat.length - 1].remove();
+                paivitaPoistopainike();
+            }
         });
     </script>
 </body>
